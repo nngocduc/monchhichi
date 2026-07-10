@@ -69,8 +69,7 @@ $('#adminReset').addEventListener('click', ()=>{
     return;
   }
   resetArmed = false;
-  localStorage.removeItem(LS_KEY);
-  DATA = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  DATA = currentStore.reset(DEFAULT_DATA);
   renderAll(); revealAll(); toast('初期状態に戻しました ✔');
 });
 

@@ -349,8 +349,11 @@ footer .hand{font-size:20px;color:var(--wood)}
 }
 
 /* ---------- ADMIN ---------- */
-.admin-link{cursor:pointer;color:var(--ink-soft);opacity:.6}
-.admin-link:hover{color:var(--wood);opacity:1}
+.admin-link,.auth-link{cursor:pointer;color:var(--ink-soft);opacity:.6}
+.admin-link:hover,.auth-link:hover,.auth-link:focus{color:var(--wood);opacity:1}
+.auth-link:focus{outline:2px solid rgba(217,160,140,.35);outline-offset:3px;border-radius:999px}
+.auth-state{display:inline-block;margin-top:6px;color:var(--ink-soft);opacity:.72}
+.footer-sep{color:var(--ink-soft);opacity:.35;margin:0 8px}
 .admin-bar{
   position:fixed;top:0;left:0;right:0;z-index:500;display:none;
   align-items:center;gap:8px;flex-wrap:wrap;padding:8px 14px;font-size:13px;
@@ -412,6 +415,24 @@ body.admin{padding-top:44px}
 .btn-main:hover,.btn-main:active{background:var(--wood-dark)}
 .btn-ghost{background:transparent;border-color:var(--line);color:var(--ink-soft)}
 .btn-ghost:hover,.btn-ghost:active{background:var(--cream-2)}
+.auth-card{max-width:380px}
+.auth-card .seal{display:block;text-align:center}
+.auth-card .auth-field{
+  display:block;text-align:left;font-size:11px;color:var(--ink-soft);
+  margin-bottom:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;
+}
+.auth-card .auth-field[hidden],.auth-card .auth-form[hidden],
+.auth-card .auth-placeholder[hidden],.auth-card .auth-switch[hidden]{display:none}
+.auth-card .auth-field input{
+  margin-top:4px;text-align:left;letter-spacing:0;font-weight:400;
+}
+.auth-placeholder{text-align:center}
+.auth-placeholder p{margin:4px 0 18px}
+.auth-switch{
+  margin-top:14px;border:none;background:transparent;color:var(--wood);
+  font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:4px 8px;
+}
+.auth-switch:hover,.auth-switch:focus{color:var(--wood-dark);text-decoration:underline}
 .ed-toast{
   position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:600;
   background:var(--wood-dark);color:#fff;padding:8px 20px;border-radius:999px;font-size:13px;

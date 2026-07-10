@@ -1,8 +1,5 @@
-const LS_KEY = 'olr_data_v1';
-let DATA = (function(){
-  try{ const s = localStorage.getItem(LS_KEY); if(s) return JSON.parse(s); }catch(e){}
-  return JSON.parse(JSON.stringify(DEFAULT_DATA));
-})();
+const currentStore = activeStore;
+let DATA = currentStore.load(DEFAULT_DATA);
 
 const $ = s => document.querySelector(s);
 
@@ -119,7 +116,7 @@ const io = new IntersectionObserver(es=>{
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 function persist(){
-  localStorage.setItem(LS_KEY, JSON.stringify(DATA));
+  currentStore.save(DATA);
   renderAll(); revealAll();
 }
 function revealAll(){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible')); }
