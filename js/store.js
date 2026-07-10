@@ -16,11 +16,18 @@ const localStore = {
   },
 
   save(data){
-    localStorage.setItem(LS_KEY, JSON.stringify(data));
+    try{
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+      return true;
+    }catch(e){
+      return false;
+    }
   },
 
   reset(defaultData){
-    localStorage.removeItem(LS_KEY);
+    try{
+      localStorage.removeItem(LS_KEY);
+    }catch(e){}
     return cloneData(defaultData);
   }
 };

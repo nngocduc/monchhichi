@@ -116,8 +116,11 @@ const io = new IntersectionObserver(es=>{
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 function persist(){
-  currentStore.save(DATA);
+  const saved = currentStore.save(DATA);
   renderAll(); revealAll();
+  if(!saved && typeof toast === 'function'){
+    toast('ブラウザに保存できませんでした（容量またはプライベートモード） ✗');
+  }
 }
 function revealAll(){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible')); }
 

@@ -30,6 +30,11 @@
       title: 'ログイン中',
       lead: 'Firebase Auth にログインしています。'
     },
+    [AUTH_STATES.loggedOut]: {
+      icon: '🤍',
+      title: 'ログアウト中',
+      lead: 'ログインまたは新規登録ができます。'
+    },
     [AUTH_STATES.unavailable]: {
       icon: '⚠️',
       title: 'Firebase Auth未接続',
@@ -194,8 +199,12 @@
   }
 
   function openAccount(){
+    if(!authUser){
+      openLoginForm();
+      return;
+    }
     modalOpen = true;
-    setState(authUser ? AUTH_STATES.loggedIn : AUTH_STATES.loggedOut, true);
+    setState(AUTH_STATES.loggedIn, true);
   }
 
   function closeAuthModal(){

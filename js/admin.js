@@ -50,12 +50,29 @@ $('#adminExport').addEventListener('click', ()=>{
   a.href = URL.createObjectURL(blob); a.download = 'our-little-room-data.json'; a.click();
   URL.revokeObjectURL(a.href);
 });
+function isPlainObject(v){
+  return Boolean(v) && typeof v === 'object' && !Array.isArray(v);
+}
+function isValidImportData(d){
+  if(!isPlainObject(d)) return false;
+  if(typeof d.anniversary !== 'string' || typeof d.signature !== 'string') return false;
+  const listKeys = ['timeline','album','collection','letters','playlist'];
+  if(!listKeys.every(k => Array.isArray(d[k]) && d[k].every(isPlainObject))) return false;
+  if(!isPlainObject(d.secret) || !Array.isArray(d.secret.fail)) return false;
+  return true;
+}
 $('#adminImport').addEventListener('change', e=>{
   const f = e.target.files[0]; if(!f) return;
   const r = new FileReader();
   r.onload = ()=>{
-    try{ DATA = JSON.parse(r.result); persist(); toast('データをインポートしました ✔'); }
-    catch(err){ toast('JSONファイルが正しくありません ✗'); }
+    let parsed;
+    try{ parsed = JSON.parse(r.result); }
+    catch(err){ toast('JSONファイルが正しくありません ✗'); return; }
+    if(!isValidImportData(parsed)){
+      toast('JSONの形式が正しくありません（必要な項目が不足） ✗');
+      return;
+    }
+    DATA = parsed; persist(); toast('データをインポートしました ✔');
   };
   r.readAsText(f); e.target.value = '';
 });
