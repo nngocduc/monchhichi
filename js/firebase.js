@@ -1,10 +1,11 @@
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_FIREBASE_APP_ID"
+  apiKey: "AIzaSyAJwU_MILalXZ4UTSJipyL4F0qm0qGwAKQ",
+  authDomain: "monchhichi-95d35.firebaseapp.com",
+  projectId: "monchhichi-95d35",
+  storageBucket: "monchhichi-95d35.firebasestorage.app",
+  messagingSenderId: "200611256149",
+  appId: "1:200611256149:web:2dab86de45e42c577281dc",
+  measurementId: "G-CW27LYHFZ3"
 };
 
 const FIREBASE_SDK_VERSION = "12.15.0";
