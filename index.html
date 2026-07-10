@@ -116,7 +116,7 @@
   <span id="footHeart" title="?">🤎</span><br>
   <small id="daysCounter"></small><br>
   <small class="auth-state" id="authStateText">Firebase Auth未接続</small><br>
-  <small class="auth-link" id="authLink" role="button" tabindex="0">ログイン / 登録プレビュー</small>
+  <small class="auth-link" id="authLink" role="button" tabindex="0">設定が必要</small>
   <span class="footer-sep" aria-hidden="true">&middot;</span>
   <small class="admin-link" id="adminLink">✎ 管理</small>
 </footer>
@@ -147,10 +147,10 @@
 <div class="modal-bg" id="authModal" aria-hidden="true">
   <div class="login-card auth-card" role="dialog" aria-modal="true" aria-labelledby="authTitle">
     <span class="seal" id="authIcon" style="font-size:38px">🤍</span>
-    <h3 id="authTitle">ログインプレビュー</h3>
-    <p id="authLead">Firebase Authはまだ接続されていません。入力しても認証は行われません。</p>
+    <h3 id="authTitle">Firebase Auth未接続</h3>
+    <p id="authLead">Firebase設定が未入力のため、ログインと登録は利用できません。</p>
     <form class="auth-form" id="authForm" novalidate>
-      <label class="auth-field" id="authNameField">
+      <label class="auth-field" id="authNameField" hidden>
         <span>お名前</span>
         <input type="text" id="authName" autocomplete="name">
       </label>
@@ -162,20 +162,20 @@
         <span>パスワード</span>
         <input type="password" id="authPassword" autocomplete="current-password">
       </label>
-      <div class="login-err" id="authMessage" role="status" aria-live="polite">Firebase Authはまだ接続されていません（UIプレビューのみ）。</div>
+      <div class="login-err" id="authMessage" role="status" aria-live="polite"></div>
       <div class="login-actions">
         <button class="btn-ghost" type="button" id="authCancel">キャンセル</button>
-        <button class="btn-main" type="submit" id="authSubmit">ログインプレビューを表示</button>
+        <button class="btn-main" type="submit" id="authSubmit">ログイン</button>
       </div>
     </form>
     <div class="auth-placeholder" id="authPlaceholder" hidden>
-      <p>これはプレビュー状態のみです。Firebase Authにはログインしていません。</p>
+      <p id="authPlaceholderText">js/firebase.js のFirebase設定がプレースホルダーのため、ログインと登録は利用できません。</p>
       <div class="login-actions">
         <button class="btn-ghost" type="button" id="authPlaceholderClose">閉じる</button>
         <button class="btn-main" type="button" id="authLogout">ログアウト</button>
       </div>
     </div>
-    <button class="auth-switch" type="button" id="authSwitch">登録プレビューへ</button>
+    <button class="auth-switch" type="button" id="authSwitch">新規登録へ</button>
   </div>
 </div>
 

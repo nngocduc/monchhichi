@@ -433,6 +433,7 @@ body.admin{padding-top:44px}
   font:inherit;font-size:13px;font-weight:600;cursor:pointer;padding:4px 8px;
 }
 .auth-switch:hover,.auth-switch:focus{color:var(--wood-dark);text-decoration:underline}
+.auth-card button:disabled,.auth-card input:disabled{opacity:.55;cursor:not-allowed}
 .ed-toast{
   position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:600;
   background:var(--wood-dark);color:#fff;padding:8px 20px;border-radius:999px;font-size:13px;

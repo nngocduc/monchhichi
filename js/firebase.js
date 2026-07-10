@@ -7,28 +7,50 @@ const firebaseConfig = {
   appId: "YOUR_FIREBASE_APP_ID"
 };
 
+const FIREBASE_SDK_VERSION = "12.15.0";
+
+function hasRealFirebaseConfig(config){
+  return Object.values(config).every(value => {
+    return value && !String(value).includes("YOUR_");
+  });
+}
+
 const appFirebase = {
   app: null,
   auth: null,
-  db: null,
+  modules: null,
   config: firebaseConfig,
   initialized: false,
-  configured: Object.values(firebaseConfig).every(value => {
-    return value && !String(value).startsWith("YOUR_");
-  }),
+  configured: hasRealFirebaseConfig(firebaseConfig),
+  error: null,
+  initPromise: null,
 
-  init(){
+  async init(){
     if(this.initialized) return this;
     if(!this.configured) return this;
-    if(!window.firebase || !window.firebase.initializeApp) return this;
+    if(this.initPromise) return this.initPromise;
 
-    this.app = window.firebase.apps && window.firebase.apps.length
-      ? window.firebase.app()
-      : window.firebase.initializeApp(firebaseConfig);
-    this.auth = window.firebase.auth ? window.firebase.auth() : null;
-    this.db = window.firebase.firestore ? window.firebase.firestore() : null;
-    this.initialized = Boolean(this.app);
-    return this;
+    this.initPromise = (async () => {
+      const [appModule, authModule] = await Promise.all([
+        import(`https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-app.js`),
+        import(`https://www.gstatic.com/firebasejs/${FIREBASE_SDK_VERSION}/firebase-auth.js`)
+      ]);
+
+      this.modules = { app: appModule, auth: authModule };
+      this.app = appModule.getApps().length
+        ? appModule.getApp()
+        : appModule.initializeApp(firebaseConfig);
+      this.auth = authModule.getAuth(this.app);
+      this.initialized = true;
+      this.error = null;
+      return this;
+    })().catch(error => {
+      this.error = error;
+      this.initPromise = null;
+      return this;
+    });
+
+    return this.initPromise;
   }
 };
 
