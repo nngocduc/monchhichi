@@ -332,6 +332,7 @@
     authApi.onAuthStateChanged(authClient, user => {
       authUser = user;
       if(user){
+        firebaseApp.ensureUserDocuments(user);
         setState(AUTH_STATES.loggedIn);
         return;
       }
